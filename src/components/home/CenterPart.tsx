@@ -1,63 +1,31 @@
-"use client"
-
-import * as React from "react"
-import { Fingerprint, Eye, EyeOff } from "lucide-react"
-
-
-const correctPassword = '1234';
+import React, { useState } from "react";
+import { Fingerprint, Eye, EyeOff } from "lucide-react";
 
 interface CenterPartProps {
     onEnterLab: () => void;
-    onExitLab: () => void;
-    isEntered: boolean;
+    isLoggedIn: boolean;
+    timeLeft: number;
+    isTimeExhausted: boolean;
 }
 
-const CenterPart: React.FC<CenterPartProps> = ({ onEnterLab, onExitLab, isEntered }) => {
-    const [password, setPassword] = React.useState<string>("")
-    const [showPassword, setShowPassword] = React.useState<boolean>(false)
-    const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
-    const [timeLeft, setTimeLeft] = React.useState<number>(600);
+const correctPassword = '1234';
 
+const CenterPart: React.FC<CenterPartProps> = ({ onEnterLab, isLoggedIn, timeLeft, isTimeExhausted }) => {
+    const [password, setPassword] = useState<string>("");
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword)
-    }
+        setShowPassword((prev) => !prev);
+    };
 
-    // Handle password submission
     const handleLogin = () => {
-        if (password === "1234") {
-            setIsLoggedIn(true);
+        if (isTimeExhausted || timeLeft === 0) {
+            alert("You have exhausted your allocated time.");
+        } else if (password === correctPassword) {
             onEnterLab();
         } else {
             alert("Incorrect password");
         }
-    };
-
-
-    // Handle timer countdown 
-    React.useEffect(() => {
-        let timer: NodeJS.Timeout | null = null;
-        if (isLoggedIn && timeLeft > 0) {
-            timer = setInterval(() => {
-                setTimeLeft((prev) => prev - 1);
-            }, 1000);
-        }
-
-        // If time runs out
-        if (timeLeft === 0) {
-            setIsLoggedIn(false);
-            alert('You have exhausted your allocated time.');
-        }
-
-        return () => {
-            if (timer) clearInterval(timer);
-        };
-    }, [isLoggedIn, timeLeft]);
-
-    // Handle exiting the lab
-    const handleExit = () => {
-        setIsLoggedIn(false);
-        setTimeLeft(600);
     };
 
     return (
@@ -95,7 +63,7 @@ const CenterPart: React.FC<CenterPartProps> = ({ onEnterLab, onExitLab, isEntere
                 </div>
             ) : (
                 <div className="flex items-center justify-center absolute z-20">
-                    <div className="flex h-[400px] w-[400px] flex-col items-center justify-center rounded-full bg-black animate-[rotate_2s_linear_infinite]">
+                    <div className="flex h-[400px] w-[400px] flex-col items-center justify-center rounded-full bg-black animate-rotateFade">
                         <div className="absolute inset-0 rounded-full border-[6px] border-primary shadow-lg shadow-primary" />
                         <Fingerprint className="mb-4 h-16 w-16 text-primary" />
                         <p className="mb-2 text-xs font-medium uppercase tracking-wider text-gray-400">
@@ -107,7 +75,7 @@ const CenterPart: React.FC<CenterPartProps> = ({ onEnterLab, onExitLab, isEntere
 
                         <button
                             className="bg-primary text-black font-bold px-8 py-3 text-xl z-20 mt-4"
-                            onClick={handleExit}
+                            onClick={() => onEnterLab()}
                         >
                             Exit Lab
                         </button>
@@ -115,8 +83,7 @@ const CenterPart: React.FC<CenterPartProps> = ({ onEnterLab, onExitLab, isEntere
                 </div>
             )}
         </div>
-    )
-}
+    );
+};
 
-
-export default CenterPart
+export default CenterPart;

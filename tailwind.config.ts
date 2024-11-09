@@ -12,6 +12,9 @@ export default {
       colors: {
         primary: "#64D2D2",
       },
+      transitionDuration: {
+        "1000": "5000ms",
+      },
     },
   },
 

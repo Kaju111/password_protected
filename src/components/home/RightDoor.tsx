@@ -1,20 +1,6 @@
 import React from 'react';
+import { Box } from '../command/Box';
 
-type BoxProps = {
-    width: string;
-    height: string;
-    isPrimary?: boolean;
-    borderOnly?: boolean;
-};
-
-const Box: React.FC<BoxProps> = ({ width, height, isPrimary = false, borderOnly = false }) => {
-    return (
-        <div
-            className={`${height} ${width} ${isPrimary ? 'bg-primary' : ''} ${borderOnly ? 'border-2 border-primary' : 'border border-primary'
-                }`}
-        />
-    );
-};
 
 interface RightDoorProps {
     isEntered: boolean;

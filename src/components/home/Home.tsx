@@ -7,7 +7,10 @@ import InsideLab from './InsideLab';
 import { useTimeManager } from '../hooks/useTimeManager';
 
 const Home: React.FC = () => {
+    // Initial time set to 600 seconds (10 minutes)
     const initialTime = 600;
+
+    // Using the custom hook 'useTimeManager' to manage login status, time left, and time exhaustion
     const { isLoggedIn, timeLeft, isTimeExhausted, handleEnterLab, handleExitLab } = useTimeManager(initialTime);
 
     return (

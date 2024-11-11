@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export const useTimeManager = (initialTime: number) => {
+    // Function to retrieve the saved time from localStorage, falling back to initialTime if not found
     const getSavedTime = () => parseInt(localStorage.getItem('timeLeft') || `${initialTime}`);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [timeLeft, setTimeLeft] = useState<number>(getSavedTime());
@@ -8,6 +9,7 @@ export const useTimeManager = (initialTime: number) => {
         localStorage.getItem('isTimeExhausted') === 'true'
     );
 
+      // Handle the countdown and update the localStorage
     useEffect(() => {
         let timer: NodeJS.Timeout;
         if (isLoggedIn && timeLeft > 0) {
@@ -24,10 +26,12 @@ export const useTimeManager = (initialTime: number) => {
         };
     }, [isLoggedIn, timeLeft]);
 
+      // Function to handle entering the lab
     const handleEnterLab = () => {
         if (!isTimeExhausted) setIsLoggedIn(true);
     };
 
+    // Function to handle exiting the lab
     const handleExitLab = () => {
         setIsLoggedIn(false);
         localStorage.setItem('timeLeft', timeLeft.toString());

@@ -1,7 +1,6 @@
 import React from 'react';
 import { InsideLabProps } from "../global/type";
 
-
 const InsideLab: React.FC<InsideLabProps> = ({ timeLeft, onExitLab, isTimeExhausted }) => {
     return (
         <div className="text-primary absolute h-screen p-20 flex flex-col">

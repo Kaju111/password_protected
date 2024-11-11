@@ -2,17 +2,20 @@ import React, { useState } from "react";
 import { Fingerprint, Eye, EyeOff } from "lucide-react";
 import { CenterPartProps } from "../global/type";
 
-
+// Define the correct password for the lab entry
 const correctPassword = '1234';
 
 const CenterPart: React.FC<CenterPartProps> = ({ onEnterLab, isLoggedIn, timeLeft, isTimeExhausted }) => {
     const [password, setPassword] = useState<string>("");
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
+
+    // Function to toggle password visibility
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
     };
 
+    // Function to handle login when 'Enter Lab' button is clicked
     const handleLogin = () => {
         if (isTimeExhausted || timeLeft === 0) {
             alert("You have exhausted your allocated time.");

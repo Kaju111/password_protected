@@ -1,10 +1,6 @@
 import React from 'react';
+import { InsideLabProps } from "../global/type";
 
-interface InsideLabProps {
-    timeLeft: number;
-    onExitLab: () => void;
-    isTimeExhausted: boolean;
-}
 
 const InsideLab: React.FC<InsideLabProps> = ({ timeLeft, onExitLab, isTimeExhausted }) => {
     return (

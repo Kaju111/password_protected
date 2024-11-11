@@ -1,10 +1,6 @@
 import React from 'react';
 import { Box } from '../command/Box';
-
-
-interface RightDoorProps {
-    isEntered: boolean;
-}
+import { RightDoorProps } from "../global/type";
 
 const RightDoor: React.FC<RightDoorProps> = ({ isEntered }) => {
     return (

@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { Fingerprint, Eye, EyeOff } from "lucide-react";
+import { CenterPartProps } from "../global/type";
 
-interface CenterPartProps {
-    onEnterLab: () => void;
-    isLoggedIn: boolean;
-    timeLeft: number;
-    isTimeExhausted: boolean;
-}
 
 const correctPassword = '1234';
 

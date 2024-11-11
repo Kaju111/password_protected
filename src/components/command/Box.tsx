@@ -1,11 +1,5 @@
 import React from 'react';
-
-type BoxProps = {
-    width: string;
-    height: string;
-    isPrimary?: boolean;
-    borderOnly?: boolean;
-};
+import { BoxProps } from '../global/type';
 
 export const Box: React.FC<BoxProps> = ({ width, height, isPrimary = false, borderOnly = false }) => {
     return (

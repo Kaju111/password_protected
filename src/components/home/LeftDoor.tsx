@@ -1,10 +1,8 @@
 import { LineChart, Timer } from 'lucide-react'
 import React from 'react'
 import { StatItem } from '../command/StartItem'
+import { LeftDoorProps } from "../global/type";
 
-interface LeftDoorProps {
-    isEntered: boolean;
-}
 
 const LeftDoor: React.FC<LeftDoorProps> = ({ isEntered }) => {
     return (

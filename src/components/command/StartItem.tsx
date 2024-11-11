@@ -1,12 +1,5 @@
 import React from "react";
-
-interface StatItemProps {
-    icon: React.ReactNode;
-    label: string;
-    value: string;
-    total?: string;
-    description: string;
-}
+import { StatItemProps } from "../global/type";
 
 export const StatItem: React.FC<StatItemProps> = ({ icon, label, value, total, description }) => {
     return (

@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import LeftDoor from './LeftDoor';
 import CenterPart from './CenterPart';
 import RightDoor from './RightDoor';
@@ -7,11 +7,21 @@ import InsideLab from './InsideLab';
 import { useTimeManager } from '../hooks/useTimeManager';
 
 const Home: React.FC = () => {
-    // Initial time set to 600 seconds (10 minutes)
+
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+
     const initialTime = 600;
 
-    // Using the custom hook 'useTimeManager' to manage login status, time left, and time exhaustion
-    const { isLoggedIn, timeLeft, isTimeExhausted, handleEnterLab, handleExitLab } = useTimeManager(initialTime);
+    const { timeLeft, isTimeExhausted } = useTimeManager(initialTime, isLoggedIn);
+
+
+
+    const handleEnterLab = () => {
+        setIsLoggedIn(true)
+    }
+    const handleExitLab = () => {
+        setIsLoggedIn(false)
+    }
 
     return (
         <div className="bg-black min-h-screen flex items-center justify-between gap-1">

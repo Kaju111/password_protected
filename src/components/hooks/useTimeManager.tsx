@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useTimeManager = (initialTime: number) => {
-    // Function to retrieve the saved time from localStorage, falling back to initialTime if not found
+export const useTimeManager = (initialTime: number, isEntered: boolean) => {
     const getSavedTime = () => parseInt(localStorage.getItem('timeLeft') || `${initialTime}`);
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [timeLeft, setTimeLeft] = useState<number>(getSavedTime());
@@ -9,33 +8,24 @@ export const useTimeManager = (initialTime: number) => {
         localStorage.getItem('isTimeExhausted') === 'true'
     );
 
-      // Handle the countdown and update the localStorage
     useEffect(() => {
-        let timer: NodeJS.Timeout;
-        if (isLoggedIn && timeLeft > 0) {
-            timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
-        } else if (timeLeft === 0) {
-            setIsLoggedIn(false);
-            setIsTimeExhausted(true);
-            localStorage.setItem('isTimeExhausted', 'true');
+        if (!isEntered || timeLeft <= 0) {
+            if (timeLeft <= 0) setIsTimeExhausted(true);
+            return;
         }
 
-        return () => {
-            clearInterval(timer);
-            localStorage.setItem('timeLeft', timeLeft.toString());
-        };
-    }, [isLoggedIn, timeLeft]);
+        const interval = setInterval(() => {
+            setTimeLeft((prev) => {
+                const newTime = prev - 1;
+                localStorage.setItem('timeLeft', newTime.toString());
+                return Math.max(newTime, 0);
+            });
+        }, 1000);
 
-      // Function to handle entering the lab
-    const handleEnterLab = () => {
-        if (!isTimeExhausted) setIsLoggedIn(true);
-    };
+        return () => clearInterval(interval);
+    }, [isEntered, timeLeft]);
 
-    // Function to handle exiting the lab
-    const handleExitLab = () => {
-        setIsLoggedIn(false);
-        localStorage.setItem('timeLeft', timeLeft.toString());
-    };
 
-    return { isLoggedIn, timeLeft, isTimeExhausted, handleEnterLab, handleExitLab };
+
+    return { isLoggedIn, timeLeft, isTimeExhausted };
 };

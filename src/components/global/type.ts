@@ -24,6 +24,9 @@ export type BoxProps = {
   height: string;
   isPrimary?: boolean;
   borderOnly?: boolean;
+  animated?: boolean;
+  fillPercentage?: number;
+  isBgColor?: boolean;
 };
 
 export interface StatItemProps {

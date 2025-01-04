@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 
 export const useTimeManager = (initialTime: number, isEntered: boolean) => {
-    const getSavedTime = () => parseInt(localStorage.getItem('timeLeft') || `${initialTime}`);
+    const isBrowser = typeof window !== 'undefined';
+
+    const getSavedTime = () =>
+        isBrowser ? parseInt(localStorage.getItem('timeLeft') || `${initialTime}`) : initialTime;
+
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [timeLeft, setTimeLeft] = useState<number>(getSavedTime());
     const [isTimeExhausted, setIsTimeExhausted] = useState<boolean>(
-        localStorage.getItem('isTimeExhausted') === 'true'
+        isBrowser && localStorage.getItem('isTimeExhausted') === 'true'
     );
 
     useEffect(() => {
@@ -17,15 +21,15 @@ export const useTimeManager = (initialTime: number, isEntered: boolean) => {
         const interval = setInterval(() => {
             setTimeLeft((prev) => {
                 const newTime = prev - 1;
-                localStorage.setItem('timeLeft', newTime.toString());
+                if (isBrowser) {
+                    localStorage.setItem('timeLeft', newTime.toString());
+                }
                 return Math.max(newTime, 0);
             });
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [isEntered, timeLeft]);
-
-
+    }, [isEntered, timeLeft, isBrowser]);
 
     return { isLoggedIn, timeLeft, isTimeExhausted };
 };

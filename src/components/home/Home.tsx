@@ -15,7 +15,6 @@ const Home: React.FC = () => {
     const { timeLeft, isTimeExhausted } = useTimeManager(initialTime, isLoggedIn);
 
 
-
     const handleEnterLab = () => {
         setIsLoggedIn(true)
     }

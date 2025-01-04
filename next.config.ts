@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
+import { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["cataas.com"], // Add the allowed domain here
+  },
 };
 
 export default nextConfig;

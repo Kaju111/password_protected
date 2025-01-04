@@ -15,8 +15,10 @@ const RightDoor: React.FC<RightDoorProps> = ({ isEntered }) => {
 
     return (
         <div
-            className={`min-h-screen ${isEntered ? 'w-0 p-0 opacity-0' : 'w-[50%] p-20'} bg-black border-primary border-[6px] transition-all duration-1000`}
+            className={`h-screen ${isEntered ? 'opacity-0 overflow-hidden w-0 p-0' : 'opacity-100 w-[50%] p-20'
+                } bg-black border-primary border-[6px] transition-all duration-1000`}
         >
+
             <div className="flex flex-col items-end justify-start pt-28 pr-10">
                 <div className="space-y-2">
                     {Array.from({ length: totalBoxes - minutesLeft - 1 }).map((_, i) => (

@@ -7,8 +7,10 @@ import { LeftDoorProps } from "../global/type";
 const LeftDoor: React.FC<LeftDoorProps> = ({ isEntered }) => {
     return (
         <div
-            className={`min-h-screen ${isEntered ? 'w-0 p-0 opacity-0' : 'w-[50%] p-20'} bg-black border-[6px] border-primary transition-all duration-1000 z-20 `}
+            className={`h-screen ${isEntered ? 'opacity-0 overflow-hidden w-0 p-0 ' : 'opacity-100 w-[50%] p-20'
+                } bg-black border-primary border-[6px] transition-all duration-1000 z-20 `}
         >
+
             <section className="space-y-6">
                 <header>
                     <h1 className="text-5xl font-bold text-white">Java</h1>
